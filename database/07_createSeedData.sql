@@ -234,3 +234,97 @@ BEGIN
 
 END;
 GO
+
+/* ORDERS + ORDER ITEMS */
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM dbo.cenker_Orders
+)
+BEGIN
+
+    DECLARE @Ahmet INT =
+    (
+        SELECT UserID
+        FROM dbo.cenker_Users
+        WHERE Email = N'ahmet.yilmaz@example.com'
+    );
+
+    DECLARE @Zeynep INT =
+    (
+        SELECT UserID
+        FROM dbo.cenker_Users
+        WHERE Email = N'zeynep.kaya@example.com'
+    );
+
+    DECLARE @Mehmet INT =
+    (
+        SELECT UserID
+        FROM dbo.cenker_Users
+        WHERE Email = N'mehmet.demir@example.com'
+    );
+
+    DECLARE @Elif INT =
+    (
+        SELECT UserID
+        FROM dbo.cenker_Users
+        WHERE Email = N'elif.sahin@example.com'
+    );
+
+
+    DECLARE @Laptop INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Laptop Pro 14'
+    );
+
+    DECLARE @Mouse INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Gaming Mouse'
+    );
+
+    DECLARE @Kulaklik INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Kablosuz Kulaklık'
+    );
+
+    DECLARE @TelefonProduct INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Akıllı Telefon X'
+    );
+
+    DECLARE @SQLBook INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'SQL Temelleri'
+    );
+
+    DECLARE @Keyboard INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Mekanik Klavye'
+    );
+
+    DECLARE @CoffeeMachine INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Kahve Makinesi'
+    );
+
+    DECLARE @Shoes INT =
+    (
+        SELECT ProductID
+        FROM dbo.cenker_Products
+        WHERE ProductName = N'Spor Ayakkabı'
+    );
