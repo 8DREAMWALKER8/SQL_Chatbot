@@ -328,3 +328,38 @@ BEGIN
         FROM dbo.cenker_Products
         WHERE ProductName = N'Spor Ayakkabı'
     );
+
+/* ORDER 1 */
+
+    INSERT INTO dbo.cenker_Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Ahmet,
+        45999.70,
+        N'Delivered',
+        N'İstanbul',
+        DATEADD(DAY,-75,SYSDATETIME()),
+        DATEADD(DAY,-73,SYSDATETIME())
+    );
+
+    DECLARE @Order1 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.cenker_OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order1, @Laptop, 1, 42999.90),
+    (@Order1, @Mouse, 2, 1499.90);
