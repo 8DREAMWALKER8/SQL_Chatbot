@@ -363,3 +363,42 @@ BEGIN
     VALUES
     (@Order1, @Laptop, 1, 42999.90),
     (@Order1, @Mouse, 2, 1499.90);
+
+
+
+     /* ORDER 2 */
+
+    INSERT INTO dbo.cenker_Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Zeynep,
+        5599.80,
+        N'Delivered',
+        N'Ankara',
+        DATEADD(DAY,-60,SYSDATETIME()),
+        DATEADD(DAY,-58,SYSDATETIME())
+    );
+
+    DECLARE @Order2 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.cenker_OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order2, @Kulaklik, 2, 2799.90);
+
+
+    
