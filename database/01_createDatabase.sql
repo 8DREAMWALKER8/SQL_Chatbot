@@ -4,3 +4,4 @@ GO
 CREATE DATABASE eCommerce
 COLLATE Turkish_CI_AS;
 GO
+

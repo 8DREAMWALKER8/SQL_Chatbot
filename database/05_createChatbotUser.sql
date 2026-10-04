@@ -107,12 +107,12 @@ Yetki kontrolü
 SELECT 
     dp.Name AS UserName,
     perm.state_desc AS PermissionState,
-    perm.permission_name AS PermissionNaem,
+    perm.permission_name AS PermissionName,
     perm.class_desc AS PermissionClass
 FROM
-    sys.database_permission AS perm 
+    sys.database_permissions AS perm 
 INNER JOIN
-    sys.database_principals as dp ON prem.grantee_principal_id = dp.principal_id
+    sys.database_principals as dp ON perm.grantee_principal_id = dp.principal_id
 WHERE
     dp.name =N'chatbot_reader'
 ORDER BY

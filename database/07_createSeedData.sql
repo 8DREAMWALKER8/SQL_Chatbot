@@ -41,11 +41,11 @@ GO
 IF NOT EXISTS
 (
     SELECT 1
-    FROM dbo.cenker_Users
+    FROM dbo.Users
 )
 BEGIN
 
-    INSERT INTO dbo.cenker_Users
+    INSERT INTO dbo.Users
     (
         FirstName,
         LastName,
@@ -137,68 +137,68 @@ GO
 IF NOT EXISTS
 (
     SELECT 1
-    FROM dbo.cenker_Products
+    FROM dbo.Products
 )
 BEGIN
 
     DECLARE @Elektronik INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Elektronik'
     );
 
     DECLARE @Bilgisayar INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Bilgisayar'
     );
 
     DECLARE @Telefon INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Telefon'
     );
 
     DECLARE @EvYasam INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Ev Yaşam'
     );
 
     DECLARE @Kitap INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Kitap'
     );
 
     DECLARE @Giyim INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Giyim'
     );
 
     DECLARE @Spor INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Spor'
     );
 
     DECLARE @Ofis INT =
     (
         SELECT CategoryID
-        FROM dbo.cenker_Categories
+        FROM dbo.Categories
         WHERE CategoryName = N'Ofis'
     );
 
 
-    INSERT INTO dbo.cenker_Products
+    INSERT INTO dbo.Products
     (
         CategoryID,
         ProductName,
@@ -240,35 +240,35 @@ GO
 IF NOT EXISTS
 (
     SELECT 1
-    FROM dbo.cenker_Orders
+    FROM dbo.Orders
 )
 BEGIN
 
     DECLARE @Ahmet INT =
     (
         SELECT UserID
-        FROM dbo.cenker_Users
+        FROM dbo.Users
         WHERE Email = N'ahmet.yilmaz@example.com'
     );
 
     DECLARE @Zeynep INT =
     (
         SELECT UserID
-        FROM dbo.cenker_Users
+        FROM dbo.Users
         WHERE Email = N'zeynep.kaya@example.com'
     );
 
     DECLARE @Mehmet INT =
     (
         SELECT UserID
-        FROM dbo.cenker_Users
+        FROM dbo.Users
         WHERE Email = N'mehmet.demir@example.com'
     );
 
     DECLARE @Elif INT =
     (
         SELECT UserID
-        FROM dbo.cenker_Users
+        FROM dbo.Users
         WHERE Email = N'elif.sahin@example.com'
     );
 
@@ -276,62 +276,62 @@ BEGIN
     DECLARE @Laptop INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Laptop Pro 14'
     );
 
     DECLARE @Mouse INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Gaming Mouse'
     );
 
     DECLARE @Kulaklik INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Kablosuz Kulaklık'
     );
 
     DECLARE @TelefonProduct INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Akıllı Telefon X'
     );
 
     DECLARE @SQLBook INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'SQL Temelleri'
     );
 
     DECLARE @Keyboard INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Mekanik Klavye'
     );
 
     DECLARE @CoffeeMachine INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Kahve Makinesi'
     );
 
     DECLARE @Shoes INT =
     (
         SELECT ProductID
-        FROM dbo.cenker_Products
+        FROM dbo.Products
         WHERE ProductName = N'Spor Ayakkabı'
     );
 
 /* ORDER 1 */
 
-    INSERT INTO dbo.cenker_Orders
+    INSERT INTO dbo.Orders
     (
         UserID,
         TotalPrice,
@@ -353,7 +353,7 @@ BEGIN
     DECLARE @Order1 INT = SCOPE_IDENTITY();
 
 
-    INSERT INTO dbo.cenker_OrderItems
+    INSERT INTO dbo.OrderItems
     (
         OrderID,
         ProductID,
@@ -368,7 +368,7 @@ BEGIN
 
      /* ORDER 2 */
 
-    INSERT INTO dbo.cenker_Orders
+    INSERT INTO dbo.Orders
     (
         UserID,
         TotalPrice,
@@ -390,7 +390,7 @@ BEGIN
     DECLARE @Order2 INT = SCOPE_IDENTITY();
 
 
-    INSERT INTO dbo.cenker_OrderItems
+    INSERT INTO dbo.OrderItems
     (
         OrderID,
         ProductID,
@@ -401,4 +401,205 @@ BEGIN
     (@Order2, @Kulaklik, 2, 2799.90);
 
 
-    
+     /* ORDER 3 */
+
+    INSERT INTO dbo.Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Mehmet,
+        32899.80,
+        N'Shipped',
+        N'İzmir',
+        DATEADD(DAY,-45,SYSDATETIME()),
+        DATEADD(DAY,-43,SYSDATETIME())
+    );
+
+    DECLARE @Order3 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order3, @TelefonProduct, 1, 31999.90),
+    (@Order3, @SQLBook, 2, 449.95);
+
+
+
+    /* ORDER 4 */
+
+    INSERT INTO dbo.Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Elif,
+        5899.70,
+        N'Delivered',
+        N'Bursa',
+        DATEADD(DAY,-30,SYSDATETIME()),
+        DATEADD(DAY,-28,SYSDATETIME())
+    );
+
+    DECLARE @Order4 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order4, @Keyboard, 1, 1999.90),
+    (@Order4, @CoffeeMachine, 1, 3899.80);
+
+
+
+    /* ORDER 5 */
+
+    INSERT INTO dbo.Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Ahmet,
+        6899.70,
+        N'Delivered',
+        N'İstanbul',
+        DATEADD(DAY,-20,SYSDATETIME()),
+        DATEADD(DAY,-18,SYSDATETIME())
+    );
+
+    DECLARE @Order5 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order5, @Shoes, 3, 2299.90);
+
+
+
+    /* ORDER 6 - Pending */
+
+    INSERT INTO dbo.Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Zeynep,
+        4499.70,
+        N'Pending',
+        N'Ankara',
+        DATEADD(DAY,-5,SYSDATETIME()),
+        NULL
+    );
+
+    DECLARE @Order6 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order6, @Mouse, 3, 1499.90);
+
+
+
+    /* ORDER 7 - Recent */
+
+    INSERT INTO dbo.Orders
+    (
+        UserID,
+        TotalPrice,
+        OrderStatus,
+        ShippingAddress,
+        OrderDate,
+        ShippedDate
+    )
+    VALUES
+    (
+        @Mehmet,
+        5599.80,
+        N'Processing',
+        N'İzmir',
+        DATEADD(DAY,-2,SYSDATETIME()),
+        NULL
+    );
+
+    DECLARE @Order7 INT = SCOPE_IDENTITY();
+
+
+    INSERT INTO dbo.OrderItems
+    (
+        OrderID,
+        ProductID,
+        Quantity,
+        UnitPrice
+    )
+    VALUES
+    (@Order7, @Kulaklik, 2, 2799.90);
+
+END;
+GO
+
+
+
+/* SEED CONTROL */
+
+SELECT COUNT(*) AS UserCount
+FROM dbo.Users;
+
+SELECT COUNT(*) AS CategoryCount
+FROM dbo.Categories;
+
+SELECT COUNT(*) AS ProductCount
+FROM dbo.Products;
+
+SELECT COUNT(*) AS OrderCount
+FROM dbo.Orders;
+
+SELECT COUNT(*) AS OrderItemCount
+FROM dbo.OrderItems;
+GO

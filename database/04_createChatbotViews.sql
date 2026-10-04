@@ -70,7 +70,7 @@ AS
 SELECT
     p.productID,
     P.ProductName,
-    p.ProductDesription,
+    p.ProductDescription,
     
     c.CategoryID,
     c.CategoryName,

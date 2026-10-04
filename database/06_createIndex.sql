@@ -1,25 +1,28 @@
-/* 
+/*
+    FILE: 06_createIndex.sql
 
-Burda performas için gerekli index'lerimiz bulunacak.
-Analitik sorgu ve join işlemlerinin performansı iyileştirilecek
+    PURPOSE:
+    Analitik sorgular ve JOIN işlemleri için gerekli
+    indexleri oluşturur.
 
+    Bu script tekrar çalıştırılabilir.
 */
 
 
-USE eCommerce
+USE eCommerce;
 GO
 
-/*Orders - User*/
+
+/* =========================================================
+   ORDERS - USER
+   ========================================================= */
 
 IF NOT EXISTS
 (
     SELECT 1
-    FROM
-        sys.indexes
-    WHERE
-        Object_id = OBJECT_ID(N'dbo.Orders')
-        AND name = N'IX_Orders_UserID'
-
+    FROM sys.indexes
+    WHERE object_id = OBJECT_ID(N'dbo.Orders')
+      AND name = N'IX_Orders_UserID'
 )
 BEGIN
 
@@ -33,55 +36,66 @@ BEGIN
         TotalPrice
     );
 
-    PRINT 'IX_Orders_UserID oluşturuldu'
+    PRINT 'IX_Orders_UserID oluşturuldu.';
 
-END;
-GO
-
-
-/* Orders - Date */
-
-IF NOT EXISTS
-(
-    SELECT
-        1
-    FROM
-        sys.indexes
-    WHERE
-        object_id = OBJECT_ID(N'dbo.Orders')
-    AND name = N'IX_Orders_Orderdate'
-    
-)
-
+END
+ELSE
 BEGIN
 
-CREATE INDEX IX_Orders_Orderdate
-ON dbo.Orders(OrderDate)
-
-INCLUDE
-(
-    UserID,
-    OrderStatus,
-    TotalPrice,
-    ShippedDate
-);
-
-PRINT 'IX_Orders_OrderDate oluşturuldu.'
+    PRINT 'IX_Orders_UserID zaten mevcut.';
 
 END;
 GO
 
-/* OrderItems - Order */
+
+
+/* =========================================================
+   ORDERS - ORDER DATE
+   ========================================================= */
 
 IF NOT EXISTS
 (
     SELECT 1
-    FROM    
-        sys.indexes
-    WHERE 
-        object_id = OBJECT_ID (N'dbo.OrderItems')
-    AND 
-        name = N'IX_OrderItems_OrderID'
+    FROM sys.indexes
+    WHERE object_id = OBJECT_ID(N'dbo.Orders')
+      AND name = N'IX_Orders_OrderDate'
+)
+BEGIN
+
+    CREATE INDEX IX_Orders_OrderDate
+    ON dbo.Orders(OrderDate)
+
+    INCLUDE
+    (
+        UserID,
+        OrderStatus,
+        TotalPrice,
+        ShippedDate
+    );
+
+    PRINT 'IX_Orders_OrderDate oluşturuldu.';
+
+END
+ELSE
+BEGIN
+
+    PRINT 'IX_Orders_OrderDate zaten mevcut.';
+
+END;
+GO
+
+
+
+/* =========================================================
+   ORDER ITEMS - ORDER
+   ========================================================= */
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE object_id = OBJECT_ID(N'dbo.OrderItems')
+      AND name = N'IX_OrderItems_OrderID'
 )
 BEGIN
 
@@ -91,24 +105,33 @@ BEGIN
     INCLUDE
     (
         ProductID,
-        Quantitiy,
+        Quantity,
         UnitPrice
     );
 
-    PRINT 'IX_OrderItems_OrderID oluşturuldu.'
+    PRINT 'IX_OrderItems_OrderID oluşturuldu.';
+
+END
+ELSE
+BEGIN
+
+    PRINT 'IX_OrderItems_OrderID zaten mevcut.';
 
 END;
 GO
 
 
-/* OrderItems - Products */
+
+/* =========================================================
+   ORDER ITEMS - PRODUCT
+   ========================================================= */
+
 IF NOT EXISTS
 (
     SELECT 1
     FROM sys.indexes
-    WHERE
-        object_id = OBJECT_ID (N'dbo.OrderItems')
-        AND name = N'IX_OrderItems_ProductID'
+    WHERE object_id = OBJECT_ID(N'dbo.OrderItems')
+      AND name = N'IX_OrderItems_ProductID'
 )
 BEGIN
 
@@ -118,24 +141,33 @@ BEGIN
     INCLUDE
     (
         OrderID,
-        Quantitiy,
+        Quantity,
         UnitPrice
     );
 
-    PRINT ('IX_OrderItems_ProductID oluşturuldu.')
+    PRINT 'IX_OrderItems_ProductID oluşturuldu.';
+
+END
+ELSE
+BEGIN
+
+    PRINT 'IX_OrderItems_ProductID zaten mevcut.';
 
 END;
 GO
 
 
-/* Products - Category */
+
+/* =========================================================
+   PRODUCTS - CATEGORY
+   ========================================================= */
+
 IF NOT EXISTS
 (
     SELECT 1
-    FROM
-        sys.indexes
-    WHERE
-        object_id = OBJECT_ID (N'IX_Products_CategoryID')
+    FROM sys.indexes
+    WHERE object_id = OBJECT_ID(N'dbo.Products')
+      AND name = N'IX_Products_CategoryID'
 )
 BEGIN
 
@@ -150,31 +182,38 @@ BEGIN
         IsProductActive
     );
 
-    PRINT 'IX_Products_CategoryID oluşturuldu.'
+    PRINT 'IX_Products_CategoryID oluşturuldu.';
+
+END
+ELSE
+BEGIN
+
+    PRINT 'IX_Products_CategoryID zaten mevcut.';
 
 END;
 GO
 
 
-/* INDEX KONTROLÜ */
 
+/* =========================================================
+   INDEX KONTROLÜ
+   ========================================================= */
 
 SELECT
-    OBJECT_NAME (i.object_id) AS TableName,
+    OBJECT_NAME(i.object_id) AS TableName,
     i.name AS IndexName,
     i.type_desc AS IndexType
 
-FROM sys.indexes AS i  
+FROM sys.indexes AS i
 
-WHERE 
-    i.object_id IN  
-    (
-        OBJECT_ID(N'dbo.Orders'),
-        OBJECT_ID(N'dbo.OrderItems'),
-        OBJECT_ID(N'dbo.Products')
-    )
+WHERE i.object_id IN
+(
+    OBJECT_ID(N'dbo.Orders'),
+    OBJECT_ID(N'dbo.OrderItems'),
+    OBJECT_ID(N'dbo.Products')
+)
 
-    AND i.name IS NOT NULL
+AND i.name IS NOT NULL
 
 ORDER BY
     TableName,

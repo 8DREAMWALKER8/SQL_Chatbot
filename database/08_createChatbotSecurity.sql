@@ -320,7 +320,7 @@ SELECT
     END AS SchemaName 
 
 FROM 
-    sys.database_permission AS perm
+    sys.database_permissions AS perm
 INNER JOIN
     sys.database_principals AS dp ON perm.grantee_principal_id = dp.principal_id 
 WHERE
