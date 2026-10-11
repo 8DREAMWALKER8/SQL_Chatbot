@@ -119,6 +119,147 @@ const schemaCatalog = {
 
         },
 
+        "ai.vw_Customers":{
+            description: "Müşteri kimliği, adı, rolü ve kayıt tarihi bilgilerini içerir.",
+
+            columns: [
+
+            {
+                name: "UserID",
+                description:"Müşterinin benzersiz kimliği"
+            },
+
+            {
+                name: "FirstName",
+                description: "Müşterinin ilk adı"
+
+            },
+
+            {
+                name:"LastName",
+                description: "Müşterinin soyadı"
+            },
+
+            {
+                name: "UserRole",
+                description: "Kullanıcının sistemdeki rolünü belirtir"
+            },
+
+            {
+                name: "RegisterDate",
+                description: "Müşterinin sisteme kayıt olduğu tarih"
+            },
+
+           
+        ]
+
+        },
+
+        "ai.vw_CustomerOrders":{
+            description: "Müşterilerin sipariş kimliği, toplam tutarı, durumu ve tarih bilgilerini içerir.",
+
+            columns: [
+
+            {
+                name: "UserID",
+                description:"Kullanıcının benzersiz kimliği"
+            },
+
+            {
+                name: "FirstName",
+                description: "Siparişi veren kullanıcının adı"
+
+            },
+
+            {
+                name:"LastName",
+                description: "Siparişi veren müşterinin soyadı"
+            },
+
+            {
+                name: "OrderID",
+                description: "Siparişin benzersiz kimliği"
+            },
+
+            {
+                name: "TotalPrice",
+                description: "Siparişin toplam tutarı"
+            },
+
+            {
+                name: "OrderStatus",
+                description: "Siparişin durumunu belirtir"
+            },
+
+            {
+                name: "OrderDate",
+                description: "Siparişin verildiği tarih"
+            },
+
+            {
+                name: "ShippedDate",
+                description: "Siparişin kargoya verildiği tarih"
+            },
+
+            
+        ]
+
+        },
+
+
+         "ai.vw_CustomerOrders":{
+            description: "Müşterilerin sipariş kimliği, toplam tutarı, durumu ve tarih bilgilerini içerir.",
+
+            columns: [
+
+            {
+                name: "UserID",
+                description:"Kullanıcının benzersiz kimliği"
+            },
+
+            {
+                name: "FirstName",
+                description: "Siparişi veren kullanıcının adı"
+
+            },
+
+            {
+                name:"LastName",
+                description: "Siparişi veren müşterinin soyadını belirtir"
+            },
+
+            {
+                name: "OrderID",
+                description: "Siparişin benzersiz kimliği"
+            },
+
+            {
+                name: "TotalPrice",
+                description: "Siparişin toplam tutarı"
+            },
+
+            {
+                name: "OrderStatus",
+                description: "Siparişin durumunu belirtir"
+            },
+
+            {
+                name: "OrderDate",
+                description: "Siparişin verildiği tarih"
+            },
+
+            {
+                name: "ShippedDate",
+                description: "Ürünün kargoya verildiği tarih"
+            },
+
+            
+        ]
+
+        },
+
+        
+
         
     }
 };
