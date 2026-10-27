@@ -43,23 +43,10 @@ const semanticLayer = {
         },
     
 
-    
-        averageOrderValue: 
-        {
-            description:"Siparişlerin ortalama toplam tutarı ",
-            sourceView:"ai.vw_CustomerOrders",
-            expression:"AVG(TotalPrice)",
-            dateColumn:"OrderDate",
-            synonyms:[
-                 "ortalama sipariş tutarı",
-                 "ortalama sepet tutarı",
-                 "bir sipariş ortalama ne kadar"
-            ]
-        },
 
         averageOrderValue: 
         {
-            description:"Siparişlerin ortalama toplam tutarı ",
+            description:"Siparişlerin ortalama toplam tutarı",
             sourceView:"ai.vw_CustomerOrders",
             expression:"AVG(TotalPrice)",
             dateColumn:"OrderDate",
@@ -126,7 +113,7 @@ const semanticLayer = {
                 "müşteriye göre",
                 "müşteri bazında",
                 "hangi müşteri",
-                "hangi müşteriler",
+                "hangi müşteriler"
 
             ]
         },
