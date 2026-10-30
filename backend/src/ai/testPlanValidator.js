@@ -24,3 +24,6 @@ console.log(validResult);
 
 console.log("Invalid Plan:")
 console.log(invalidResult);
+
+console.log(JSON.stringify(validResult, null, 2));
+console.log(JSON.stringify(invalidResult, null, 2));
