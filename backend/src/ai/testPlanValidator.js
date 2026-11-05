@@ -1,29 +1,31 @@
-const {validateQueryPlan} = require("./planValidator");
+const { validateQueryPlan } = require("./planValidator");
 
-const validPlan={
-    metric:"revenue",
-    dimensions:["product"],
-    timeGranularity: null,
-    timeFilter: {
-        type: "relative",
-        value: 6,
-        unit:"month"
-    }
+const validPlan = {
+    metric: "revenue",
+    dimensions: ["product"]
 };
 
-const invalidPlan={
+const invalidPlan = {
     metric: "profit",
-    dimensions:["brand"]
+    dimensions: ["brand"]
 };
 
-const validResult =  validateQueryPlan(validPlan);
-const invalidResult = validateQueryPlan(invalidPlan);
+const incompatiblePlan = {
+    metric: "averageOrderValue",
+    dimensions: ["product"]
+};
 
-console.log("Valid Plan:");
+
+const validResult = validateQueryPlan(validPlan);
+const invalidResult = validateQueryPlan(invalidPlan);
+const incompatibleResult = validateQueryPlan(incompatiblePlan);
+
+
+console.log("VALID PLAN:");
 console.log(validResult);
 
-console.log("Invalid Plan:")
+console.log("INVALID PLAN:");
 console.log(invalidResult);
 
-console.log(JSON.stringify(validResult, null, 2));
-console.log(JSON.stringify(invalidResult, null, 2));
+console.log("INCOMPATIBLE PLAN:");
+console.log(incompatibleResult);
