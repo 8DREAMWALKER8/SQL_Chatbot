@@ -55,22 +55,50 @@
         
 
         // timeFilter
-        /*
-        if(queryPlan.timeFilter !== undefined){
-            if(queryPlan === null ){
-                errors.push( "Time filter null olamaz. " );
+        
+        // timeFilter kontrolü
+if (queryPlan.timeFilter !== undefined) {
 
-            }else if(Array.isArray(queryPlan.timeFilter)){
+    const timeFilter = queryPlan.timeFilter;
 
-                errors.push("Time filter dizi olmamalı.");
+    if (
+        timeFilter === null ||
+        Array.isArray(timeFilter) ||
+        typeof timeFilter !== "object"
+    ) {
+        errors.push("Time filter bir object olmalıdır.");
+    } else {
 
-            }else if(typeof queryPlan.timeFilter !== "object"){
-
-                errors.push(`Time filter object değil: ${queryPlan.timeFilter.type}`);
-
-            }else if(queryPlan.timeFilter.){}
+        // type kontrolü
+        if (timeFilter.type !== "relative") {
+            errors.push(
+                `Desteklenmeyen timeFilter type: ${timeFilter.type}`
+            );
         }
-            */
+
+        // value kontrolü
+        if (
+            !Number.isInteger(timeFilter.value) ||
+            timeFilter.value <= 0
+        ) {
+            errors.push(
+                "Time filter value pozitif bir tam sayı olmalıdır."
+            );
+        }
+
+        // unit kontrolü
+        if (
+            !semanticLayer.dimensions.time.granularities[
+                timeFilter.unit
+            ]
+        ) {
+            errors.push(
+                `Bilinmeyen timeFilter unit: ${timeFilter.unit}`
+            );
+        }
+    }
+}
+            
 
         return {
             valid: errors.length === 0,
